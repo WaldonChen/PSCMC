@@ -4,8 +4,9 @@ then
 echo Environment variable SCMC_COMPILE_ROOT unspecified, aborting!
 exit 
 fi
-export CSCHEME_EXEC=$SCMC_COMPILE_ROOT/cscheme
-export STDLIB=$SCMC_COMPILE_ROOT/stdlib.scm
+
+export CSCHEME_EXEC=$SCMC_COMPILE_ROOT/bin/cscheme
+export STDLIB=$SCMC_COMPILE_ROOT/lib/stdlib.scm
 
 curdir=`pwd`
 if [ "$1" == '' ]
@@ -69,11 +70,11 @@ fi
 
 if [ "$SCMC_DEBUG" == 1 ]
 then 
-	(echo 1 && ( (echo "(define-scmc-global RUNTIME '$runtime)" ;cat $INPUT )| $CSCHEME_EXEC $SCMC_COMPILE_ROOT/preexpand.ss) ) | (echo 1 && $SCMC_COMPILE_ROOT/scmc2c_pre_pass $runtime $mode "$NAMESPACE_PREFIX" - $OUTPUT_H 2) > dbg.ss
+	(echo 1 && ( (echo "(define-scmc-global RUNTIME '$runtime)" ;cat $INPUT )| $CSCHEME_EXEC $SCMC_COMPILE_ROOT/lib/preexpand.ss) ) | (echo 1 && $SCMC_COMPILE_ROOT/bin/scmc2c_pre_pass $runtime $mode "$NAMESPACE_PREFIX" - $OUTPUT_H 2) > dbg.ss
 echo 
-echo "$SCMC_COMPILE_ROOT/scmc2c_pre_pass $runtime $mode $NAMESPACE_PREFIX"
+echo "$SCMC_COMPILE_ROOT/bin/scmc2c_pre_pass $runtime $mode $NAMESPACE_PREFIX"
 else
-	(echo 1 && ( (echo "(define-scmc-global RUNTIME '$runtime)" ;cat $INPUT ) | $CSCHEME_EXEC $SCMC_COMPILE_ROOT/preexpand.ss) )   | (echo 1 && $SCMC_COMPILE_ROOT/scmc2c_pre_pass $runtime $mode "$NAMESPACE_PREFIX" - $OUTPUT_H 2) | $SCMC_COMPILE_ROOT/scmc2c_multi_pass $runtime $mode $INPUT $OUTPUT
+	(echo 1 && ( (echo "(define-scmc-global RUNTIME '$runtime)" ;cat $INPUT ) | $CSCHEME_EXEC $SCMC_COMPILE_ROOT/lib/preexpand.ss) )   | (echo 1 && $SCMC_COMPILE_ROOT/bin/scmc2c_pre_pass $runtime $mode "$NAMESPACE_PREFIX" - $OUTPUT_H 2) | $SCMC_COMPILE_ROOT/bin/scmc2c_multi_pass $runtime $mode $INPUT $OUTPUT
 fi
 if [ ! -s "$OUTPUT" ]
 then

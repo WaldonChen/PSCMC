@@ -6,11 +6,11 @@ echo Environment variable SCMC_COMPILE_ROOT unspecified, aborting!
 exit 
 fi
 
-export SCMC_ROOT=$SCMC_COMPILE_ROOT/runtime_passes/
-export CSCHEME_EXEC=$SCMC_COMPILE_ROOT/cscheme
-export STDLIB=$SCMC_COMPILE_ROOT/stdlib.scm
+export SCMC_ROOT=$SCMC_COMPILE_ROOT/lib/runtime_passes/
+export CSCHEME_EXEC=$SCMC_COMPILE_ROOT/bin/cscheme
+export STDLIB=$SCMC_COMPILE_ROOT/lib/stdlib.scm
 
-SCMC_COMPILE=$SCMC_COMPILE_ROOT/scmc_compile_passes
+SCMC_COMPILE=$SCMC_COMPILE_ROOT/bin/scmc_compile_passes
 if [ "$1" == '' ]
 then
 	echo "Usage: $0 file.scmc [runtime [prefix]]"

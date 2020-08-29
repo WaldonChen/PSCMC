@@ -16,8 +16,9 @@ $CSCHEME_EXEC  csn.ss
 
 gencompile(){
 cat <<_EOF
-cat fin-shell-g.ss | ./scompiler ../fin_shell.c && (cd ../;gcc -I. hashcore_scmc.c fin_shell.c  -lm -o scmc2c_multi_pass)
-cat pre-passes-g.ss | ./scompiler ../pre_passes.c && (cd ../;gcc -I. hashcore_scmc.c pre_passes.c  -lm -o scmc2c_pre_pass)
+cat fin-shell-g.ss | ./scompiler ../src/fin_shell.c
+cat pre-passes-g.ss | ./scompiler ../src/pre_passes.c
+(cd ../; make -j4)
 _EOF
 }
 
